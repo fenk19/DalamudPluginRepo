@@ -48,7 +48,10 @@ or other materials accompanying the distribution.
 
 ## Versioning
 
-Integration builds should use a version number higher than the currently
-available original build so that Dalamud does not replace them with an upstream
-release from another repository. Increment the integration build suffix whenever
-publishing a new build.
+Integration builds use the `99.0.0.N` version range so that Dalamud treats them
+as newer than the original upstream plugins even when upstream moves to a newer
+game patch version. Increment `N` whenever publishing a new build.
+
+The first public integration build should use:
+
+- `99.0.0.1`
