@@ -68,7 +68,7 @@
     "DownloadLinkInstall": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.1/BossModReborn-RSR-99.0.0.1.zip",
     "DownloadLinkUpdate": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.1/BossModReborn-RSR-99.0.0.1.zip",
     "AssemblyVersion": "99.0.0.1",
-    "Changelog": "Initial public integration build. Source archive: https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.1/BossmodReborn-RSR-99.0.0.1-source.zip",
+    "Changelog": "Initial public integration build. BSD-3-Clause license notice is included in the plugin zip.",
     "DownloadCount": 0,
     "LastUpdate": 1779084055
   }
