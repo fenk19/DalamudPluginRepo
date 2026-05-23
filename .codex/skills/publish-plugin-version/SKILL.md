@@ -7,9 +7,10 @@ description: Publish or roll back the public Dalamud custom repository version f
 
 ## Overview
 
-Use this skill in `fenk19/DalamudPluginRepo` after fixed-version GitHub Release
-assets exist in the RSR and BMR custom repositories. This skill updates the
-public `pluginmaster.json` metadata only; it does not build plugin binaries.
+Use this skill in `fenk19/DalamudPluginRepo` after fixed-version public GitHub
+Release assets exist in this repository. The RSR and BMR custom repositories can
+remain private; `pluginmaster.json` must point only at public assets in
+`DalamudPluginRepo`.
 
 ## Workflow
 
@@ -22,12 +23,15 @@ git remote -v
 
 Work from `main`. `origin` should be `fenk19/DalamudPluginRepo`.
 
-2. Confirm the target version exists in the plugin repositories:
+2. Confirm the target version exists in this public repository:
 
 ```sh
-gh release view 99.0.0.N --repo fenk19/RotationSolverReborn-BMR
-gh release view 99.0.0.N --repo fenk19/BossmodReborn-RSR
+gh release view 99.0.0.N --repo fenk19/DalamudPluginRepo --json assets,url
 ```
+
+The release must include `RotationSolver-BMR-99.0.0.N.zip`,
+`BossModReborn-RSR-99.0.0.N.zip`, and
+`RotationSolverReborn-BMR-99.0.0.N-source.zip`.
 
 3. Preview the public metadata change:
 
@@ -51,10 +55,9 @@ git status --short --branch
 curl -fsSL https://raw.githubusercontent.com/fenk19/DalamudPluginRepo/main/pluginmaster.json
 ```
 
-Check that `RotationSolver` points to
-`fenk19/RotationSolverReborn-BMR/releases/download/VERSION/RotationSolver-BMR-VERSION.zip`
-and `BossModReborn` points to
-`fenk19/BossmodReborn-RSR/releases/download/VERSION/BossModReborn-RSR-VERSION.zip`.
+Check that `RotationSolver`, `BossModReborn`, and the RSR corresponding-source
+link in the changelog all point to
+`fenk19/DalamudPluginRepo/releases/download/VERSION/...`.
 
 ## Rollback Guidance
 
@@ -71,6 +74,8 @@ version whose contents revert the bad change, for example `99.0.0.4` after a bad
 
 - Keep both plugin entries on the same `99.0.0.N` version unless intentionally
 using `--only`.
+- Keep install/update URLs public. Do not point `pluginmaster.json` at the
+private RSR/BMR custom repositories.
 - Use `--verify-links` before writing public metadata.
 - Do not edit `pluginmaster.json` by hand for normal release operations; use the
 scripts so URLs, versions, changelogs, and `LastUpdate` stay consistent.

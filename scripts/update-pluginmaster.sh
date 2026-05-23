@@ -4,6 +4,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 
+DEFAULT_RELEASE_REPO_URL="https://github.com/fenk19/DalamudPluginRepo"
+
 VERSION=""
 TAG=""
 PLUGINMASTER="${PLUGINMASTER:-${REPO_ROOT}/pluginmaster.json}"
@@ -36,11 +38,12 @@ Options:
   --version VERSION         Assembly/release version, for example 99.0.0.2.
   --tag TAG                 GitHub release tag. Default: VERSION.
   --pluginmaster PATH       pluginmaster.json path. Default: ./pluginmaster.json
-  --repo-url URL            Legacy release repository URL for both plugin assets.
+  --repo-url URL            Public release repository URL for both plugin assets.
+                            Default: https://github.com/fenk19/DalamudPluginRepo
   --rsr-repo-url URL        RotationSolver-BMR release repository URL.
-                            Default: https://github.com/fenk19/RotationSolverReborn-BMR
+                            Default: https://github.com/fenk19/DalamudPluginRepo
   --bmr-repo-url URL        BossModReborn-RSR release repository URL.
-                            Default: https://github.com/fenk19/BossmodReborn-RSR
+                            Default: https://github.com/fenk19/DalamudPluginRepo
   --last-update EPOCH       LastUpdate unix timestamp. Default: current time.
   --only all|rsr|bmr        Limit updated entries. Default: all.
   --rsr-asset NAME          RSR release asset name.
@@ -167,8 +170,8 @@ if [[ -n "${REPO_URL}" ]]; then
   RSR_REPO_URL="${RSR_REPO_URL:-${REPO_URL}}"
   BMR_REPO_URL="${BMR_REPO_URL:-${REPO_URL}}"
 fi
-RSR_REPO_URL="${RSR_REPO_URL:-https://github.com/fenk19/RotationSolverReborn-BMR}"
-BMR_REPO_URL="${BMR_REPO_URL:-https://github.com/fenk19/BossmodReborn-RSR}"
+RSR_REPO_URL="${RSR_REPO_URL:-${DEFAULT_RELEASE_REPO_URL}}"
+BMR_REPO_URL="${BMR_REPO_URL:-${DEFAULT_RELEASE_REPO_URL}}"
 RSR_REPO_URL="${RSR_REPO_URL%/}"
 BMR_REPO_URL="${BMR_REPO_URL%/}"
 rsr_release_base="${RSR_REPO_URL}/releases/download/${TAG}"
@@ -188,11 +191,11 @@ BMR_CHANGELOG="${BMR_CHANGELOG:-Integration build ${VERSION}. BSD-3-Clause licen
 if (( VERIFY_LINKS )); then
   command -v curl >/dev/null 2>&1 || die "curl is required for --verify-links"
   if [[ "${ONLY}" == "all" || "${ONLY}" == "rsr" ]]; then
-    curl -fsIL "${rsr_download}" >/dev/null || die "RSR asset is not reachable: ${rsr_download}"
-    curl -fsIL "${rsr_source_download}" >/dev/null || die "RSR source asset is not reachable: ${rsr_source_download}"
+    curl -fsIL -o /dev/null "${rsr_download}" || die "RSR asset is not reachable: ${rsr_download}"
+    curl -fsIL -o /dev/null "${rsr_source_download}" || die "RSR source asset is not reachable: ${rsr_source_download}"
   fi
   if [[ "${ONLY}" == "all" || "${ONLY}" == "bmr" ]]; then
-    curl -fsIL "${bmr_download}" >/dev/null || die "BMR asset is not reachable: ${bmr_download}"
+    curl -fsIL -o /dev/null "${bmr_download}" || die "BMR asset is not reachable: ${bmr_download}"
   fi
 fi
 
