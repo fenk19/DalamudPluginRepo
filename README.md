@@ -55,3 +55,21 @@ game patch version. Increment `N` whenever publishing a new build.
 The first public integration build should use:
 
 - `99.0.0.1`
+
+## Maintenance Scripts
+
+Use the repository script to update `pluginmaster.json` after release assets have
+been uploaded:
+
+```sh
+scripts/update-pluginmaster.sh 99.0.0.2 --verify-links
+```
+
+Before writing, preview the generated metadata:
+
+```sh
+scripts/update-pluginmaster.sh 99.0.0.2 --dry-run
+```
+
+The script updates the install/update links, assembly versions, changelogs, and
+`LastUpdate` fields for the `RotationSolver` and `BossModReborn` entries.
