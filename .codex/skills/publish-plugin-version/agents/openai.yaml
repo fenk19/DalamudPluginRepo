@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish Plugin Version"
+  short_description: "Point pluginmaster at fixed integration releases"
+  default_prompt: "Use $publish-plugin-version to publish or roll back the public Dalamud plugin version."
