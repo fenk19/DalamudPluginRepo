@@ -7,7 +7,9 @@ REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 VERSION=""
 TAG=""
 PLUGINMASTER="${PLUGINMASTER:-${REPO_ROOT}/pluginmaster.json}"
-REPO_URL="${REPO_URL:-https://github.com/fenk19/DalamudPluginRepo}"
+REPO_URL="${REPO_URL:-}"
+RSR_REPO_URL="${RSR_REPO_URL:-}"
+BMR_REPO_URL="${BMR_REPO_URL:-}"
 LAST_UPDATE="${LAST_UPDATE:-}"
 ONLY="all"
 DRY_RUN=0
@@ -34,8 +36,11 @@ Options:
   --version VERSION         Assembly/release version, for example 99.0.0.2.
   --tag TAG                 GitHub release tag. Default: VERSION.
   --pluginmaster PATH       pluginmaster.json path. Default: ./pluginmaster.json
-  --repo-url URL            Release repository URL.
-                            Default: https://github.com/fenk19/DalamudPluginRepo
+  --repo-url URL            Legacy release repository URL for both plugin assets.
+  --rsr-repo-url URL        RotationSolver-BMR release repository URL.
+                            Default: https://github.com/fenk19/RotationSolverReborn-BMR
+  --bmr-repo-url URL        BossModReborn-RSR release repository URL.
+                            Default: https://github.com/fenk19/BossmodReborn-RSR
   --last-update EPOCH       LastUpdate unix timestamp. Default: current time.
   --only all|rsr|bmr        Limit updated entries. Default: all.
   --rsr-asset NAME          RSR release asset name.
@@ -51,7 +56,8 @@ Options:
   -h, --help                Show this help.
 
 Environment:
-  PLUGINMASTER, REPO_URL, LAST_UPDATE may be used instead of options.
+  PLUGINMASTER, REPO_URL, RSR_REPO_URL, BMR_REPO_URL, LAST_UPDATE may be used
+  instead of options.
 USAGE
 }
 
@@ -76,6 +82,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --repo-url)
       REPO_URL="${2:?missing repo url}"
+      shift 2
+      ;;
+    --rsr-repo-url)
+      RSR_REPO_URL="${2:?missing repo url}"
+      shift 2
+      ;;
+    --bmr-repo-url)
+      BMR_REPO_URL="${2:?missing repo url}"
       shift 2
       ;;
     --last-update)
@@ -149,16 +163,24 @@ TAG="${TAG:-${VERSION}}"
 LAST_UPDATE="${LAST_UPDATE:-$(date +%s)}"
 [[ "${LAST_UPDATE}" =~ ^[0-9]+$ ]] || die "--last-update must be a unix timestamp"
 
-REPO_URL="${REPO_URL%/}"
-release_base="${REPO_URL}/releases/download/${TAG}"
+if [[ -n "${REPO_URL}" ]]; then
+  RSR_REPO_URL="${RSR_REPO_URL:-${REPO_URL}}"
+  BMR_REPO_URL="${BMR_REPO_URL:-${REPO_URL}}"
+fi
+RSR_REPO_URL="${RSR_REPO_URL:-https://github.com/fenk19/RotationSolverReborn-BMR}"
+BMR_REPO_URL="${BMR_REPO_URL:-https://github.com/fenk19/BossmodReborn-RSR}"
+RSR_REPO_URL="${RSR_REPO_URL%/}"
+BMR_REPO_URL="${BMR_REPO_URL%/}"
+rsr_release_base="${RSR_REPO_URL}/releases/download/${TAG}"
+bmr_release_base="${BMR_REPO_URL}/releases/download/${TAG}"
 
 RSR_ASSET="${RSR_ASSET:-RotationSolver-BMR-${VERSION}.zip}"
 BMR_ASSET="${BMR_ASSET:-BossModReborn-RSR-${VERSION}.zip}"
 RSR_SOURCE_ASSET="${RSR_SOURCE_ASSET:-RotationSolverReborn-BMR-${VERSION}-source.zip}"
 
-rsr_download="${release_base}/${RSR_ASSET}"
-bmr_download="${release_base}/${BMR_ASSET}"
-rsr_source_download="${release_base}/${RSR_SOURCE_ASSET}"
+rsr_download="${rsr_release_base}/${RSR_ASSET}"
+bmr_download="${bmr_release_base}/${BMR_ASSET}"
+rsr_source_download="${rsr_release_base}/${RSR_SOURCE_ASSET}"
 
 RSR_CHANGELOG="${RSR_CHANGELOG:-Integration build ${VERSION}. Corresponding source: ${rsr_source_download}}"
 BMR_CHANGELOG="${BMR_CHANGELOG:-Integration build ${VERSION}. BSD-3-Clause license notice is included in the plugin zip.}"

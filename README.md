@@ -1,7 +1,7 @@
 # Dalamud Plugin Repository
 
-This repository hosts the public Dalamud custom repository metadata and release
-assets for private integration builds maintained by fenk19.
+This repository hosts the public Dalamud custom repository metadata for private
+integration builds maintained by fenk19.
 
 ## Custom Repository URL
 
@@ -40,6 +40,12 @@ Each published version should include:
 - For Rotation Solver Reborn, the complete corresponding source archive for the
   exact distributed DLL
 
+For `99.0.0.2` and later, release fixed-version assets from the matching plugin
+repository:
+
+- `fenk19/RotationSolverReborn-BMR`
+- `fenk19/BossmodReborn-RSR`
+
 Rotation Solver Reborn is licensed under LGPL-3.0-or-later, so public binary
 distribution must be accompanied by publicly accessible corresponding source.
 BossMod Reborn is licensed under BSD-3-Clause, so its binary distribution must
@@ -58,8 +64,8 @@ The first public integration build should use:
 
 ## Maintenance Scripts
 
-Use the repository script to update `pluginmaster.json` after release assets have
-been uploaded:
+Use the repository script to update `pluginmaster.json` after fixed-version
+release assets have been uploaded:
 
 ```sh
 scripts/update-pluginmaster.sh 99.0.0.2 --verify-links
@@ -73,3 +79,18 @@ scripts/update-pluginmaster.sh 99.0.0.2 --dry-run
 
 The script updates the install/update links, assembly versions, changelogs, and
 `LastUpdate` fields for the `RotationSolver` and `BossModReborn` entries.
+
+To move the public version forward or backward to an already published fixed
+version:
+
+```sh
+scripts/set-public-version.sh 99.0.0.2 --verify-links --commit --push
+```
+
+This only changes `pluginmaster.json`; it does not create plugin release assets.
+Create those first in each plugin repository with `scripts/release-version.sh`.
+
+Dalamud automatic updates are version-increasing. Publishing a lower
+`AssemblyVersion` is useful for new installs and manual reinstall/recovery, but
+clients that already installed a higher version should not be expected to
+automatically downgrade.
