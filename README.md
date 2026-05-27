@@ -30,6 +30,13 @@ Because the identities are reused, these builds replace the corresponding
 original plugins in Dalamud. Do not install the original and integration builds
 side by side.
 
+Dalamud may still show the integration builds as separate entries in the plugin
+installer because they come from this custom repository and use different
+display names and download metadata. That is expected. After installation, the
+loaded plugin identity remains the original `InternalName`, so other plugins and
+Dalamud plugin APIs should see them as `RotationSolver` and `BossModReborn`.
+Use only one build for each reused identity at a time.
+
 ## Release Asset Policy
 
 Each published version should include:
