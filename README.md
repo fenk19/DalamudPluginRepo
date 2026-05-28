@@ -61,13 +61,32 @@ or other materials accompanying the distribution.
 
 ## Versioning
 
-Integration builds use the `99.0.0.N` version range so that Dalamud treats them
+Integration builds use the `99.X.Y.Z` version range so that Dalamud treats them
 as newer than the original upstream plugins even when upstream moves to a newer
-game patch version. Increment `N` whenever publishing a new build.
+game patch version.
+
+Use these increment rules:
+
+- Upstream-only sync without conflicts: increment `Z` only.
+- Custom integration behavior change: increment `Y` and reset `Z` to `0`.
+- Upstream sync that conflicts with existing custom changes: increment `Y` and
+  reset `Z` to `0`, because the resolved result is treated as a custom
+  integration change.
+
+Keep `X` unchanged unless deliberately starting a new fixed-version series.
 
 The first public integration build should use:
 
 - `99.0.0.1`
+
+To calculate the next version from the currently published `pluginmaster.json`
+version:
+
+```sh
+scripts/next-version.sh upstream-only
+scripts/next-version.sh custom
+scripts/next-version.sh conflict
+```
 
 ## Maintenance Scripts
 
