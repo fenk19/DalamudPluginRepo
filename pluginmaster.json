@@ -27,12 +27,12 @@
     "Punchline": "Unofficial RSR build with BossModReborn movement integration.",
     "RepoUrl": "https://github.com/fenk19/DalamudPluginRepo",
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.4/RotationSolver-BMR-99.0.0.4.zip",
-    "DownloadLinkUpdate": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.4/RotationSolver-BMR-99.0.0.4.zip",
-    "AssemblyVersion": "99.0.0.4",
-    "Changelog": "Integration build 99.0.0.4. Corresponding source: https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.4/RotationSolverReborn-BMR-99.0.0.4-source.zip",
+    "DownloadLinkInstall": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.5/RotationSolver-BMR-99.0.0.5.zip",
+    "DownloadLinkUpdate": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.5/RotationSolver-BMR-99.0.0.5.zip",
+    "AssemblyVersion": "99.0.0.5",
+    "Changelog": "Integration build 99.0.0.5. Corresponding source: https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.5/RotationSolverReborn-BMR-99.0.0.5-source.zip",
     "DownloadCount": 0,
-    "LastUpdate": 1780442769
+    "LastUpdate": 1782278784
   },
   {
     "Author": "fenk19",
@@ -65,11 +65,11 @@
       "https://raw.githubusercontent.com/FFXIV-CombatReborn/BossmodReborn/master/Data/image2.png",
       "https://raw.githubusercontent.com/FFXIV-CombatReborn/BossmodReborn/master/Data/image3.png"
     ],
-    "DownloadLinkInstall": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.4/BossModReborn-RSR-99.0.0.4.zip",
-    "DownloadLinkUpdate": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.4/BossModReborn-RSR-99.0.0.4.zip",
-    "AssemblyVersion": "99.0.0.4",
-    "Changelog": "Integration build 99.0.0.4. BSD-3-Clause license notice is included in the plugin zip.",
+    "DownloadLinkInstall": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.5/BossModReborn-RSR-99.0.0.5.zip",
+    "DownloadLinkUpdate": "https://github.com/fenk19/DalamudPluginRepo/releases/download/99.0.0.5/BossModReborn-RSR-99.0.0.5.zip",
+    "AssemblyVersion": "99.0.0.5",
+    "Changelog": "Integration build 99.0.0.5. BSD-3-Clause license notice is included in the plugin zip.",
     "DownloadCount": 0,
-    "LastUpdate": 1780442769
+    "LastUpdate": 1782278784
   }
 ]
